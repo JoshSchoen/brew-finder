@@ -1,0 +1,26 @@
+<h1>
+  {{title}}
+</h1>
+<div *ngIf="!lat && !lng">
+  Please wait while we are getting your location.
+</div>
+<div *ngIf="lat && lng">
+  Lat {{lat}} lng {{lng}}
+  <sebm-google-map
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom">
+    <sebm-google-map-marker *ngFor="let brewery of breweries"
+    (markerClick)="clickedMarker(brewery)"
+    [latitude]="brewery.latitude"
+    [longitude]="brewery.longitude">
+  </sebm-google-map-marker>
+</sebm-google-map>
+<div *ngIf="brewerySelected">
+  <h3 *ngIf="brewerySelected.brewery.website">
+    <a href="{{brewerySelected.brewery.website}}">{{brewerySelected.brewery.name}}</a>
+  </h3>
+  <h3 *ngIf="!brewerySelected.brewery.website">{{brewerySelected.brewery.name}}</h3>
+  <p>{{brewerySelected.brewery.description}}</p>
+</div>
+</div>
